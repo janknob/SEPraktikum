@@ -12,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
 
-
+    // Test
     protected void onCreate(Bundle savedInstanceState) {
-      //  super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button register = (Button) findViewById(R.id.register);
         Button login = (Button) findViewById(R.id.login);
