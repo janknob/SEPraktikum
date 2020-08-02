@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class RegisterActivity extends AppCompatActivity {
 
-    MaterialEditText username, eMail, password;
+    TextInputEditText username, eMail, password;
     Button  btn_register;
 
     @Override
