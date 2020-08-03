@@ -7,4 +7,6 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#686868</color>
     <color name="headings">#4E5488</color>
+    <color name="circleBorder">#C55966</color>
+    <color name="solidCircle">#946AD6</color>
 </resources>
