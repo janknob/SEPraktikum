@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN = 5000;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
