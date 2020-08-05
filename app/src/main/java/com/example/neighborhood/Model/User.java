@@ -1,20 +1,25 @@
-package com.example.neighborhood;
+package com.example.neighborhood.Model;
 
 import java.util.ArrayList;
 
 public class User {
 
-    private int id;
+    private String id;
     private String nickname;
     private String mail;
     private String place;
-    private int age;
+    private String age;
     private String sex;
     private String description;
+    private String imageUrl;
     private ArrayList friendRequests;
     private ArrayList friendList;
 
-    public User(int id, String nickname, String mail, String place, int age, String sex, String description, ArrayList friendRequests, ArrayList friendList) {
+    public User()
+    {
+
+    }
+    public User(String id, String nickname, String mail, String place, String age, String sex, String description,String imageUrl, ArrayList friendRequests, ArrayList friendList) {
         this.id = id;
         this.nickname = nickname;
         this.mail = mail;
@@ -24,13 +29,14 @@ public class User {
         this.description = description;
         this.friendRequests = friendRequests;
         this.friendList = friendList;
+        this.imageUrl = imageUrl;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,11 +64,11 @@ public class User {
         this.place = place;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -80,6 +86,15 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl)
+    {
+        this.imageUrl = imageUrl;
     }
 
     public ArrayList getFriendRequests() {
