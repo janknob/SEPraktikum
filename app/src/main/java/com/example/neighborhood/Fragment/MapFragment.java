@@ -3,6 +3,8 @@ package com.example.neighborhood.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    View view;
+    SupportMapFragment mapFragment;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,8 +31,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_map, container, false);
+       View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if(mapFragment == null){
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            mapFragment = SupportMapFragment.newInstance();
+            ft.replace(R.id.map, mapFragment).commit();
+        }
+        mapFragment.getMapAsync(this);
         return view;
     }
 
