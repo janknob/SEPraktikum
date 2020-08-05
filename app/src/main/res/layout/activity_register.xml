@@ -36,7 +36,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="100dp"
-            android:hint="Username"/>
+            android:hint="Benutzername"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -56,15 +56,23 @@
             android:layout_marginTop="13dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Password"/>
+            android:hint="Passwort"/>
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Join"
+            android:text="Join the Neighborhood"
             android:layout_gravity="bottom"
             android:id="@+id/btn_register"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Haben sie schon einen Account? Dann klicken sie Hier."
+            android:id="@+id/txt_login"
+            android:layout_margin="10dp"
+            />
 
     </LinearLayout>
 
