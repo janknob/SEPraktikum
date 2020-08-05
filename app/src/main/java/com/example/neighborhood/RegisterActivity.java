@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         eMail = findViewById(R.id.eMail);
         password = findViewById(R.id.password);
         btn_register = findViewById(R.id.btn_register);
-        txt_login = findViewById(R.id.txt_login);
+        txt_login = findViewById(R.id.txt_signup);
 
         auth = FirebaseAuth.getInstance();
 
@@ -71,10 +71,12 @@ public class RegisterActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(str_username) || TextUtils.isEmpty(str_eMail) || TextUtils.isEmpty(str_password))
                 {
                     Toast.makeText(RegisterActivity.this, "Alle Felder müssen ausgefüllt sein!", Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
                 }
                 else if (str_password.length() < 6)
                 {
                     Toast.makeText(RegisterActivity.this, "Das Passwort muss mindestenst 6 Ziffern lang sein!", Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
                 }
                 else
                 {
