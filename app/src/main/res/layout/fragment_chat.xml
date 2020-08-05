@@ -5,10 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.ChatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Chat" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="#FF4400"
+            android:paddingLeft="10px"
+            android:paddingTop="7px"
+            android:text="Freunde"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#F4F2F2" />
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="684dp" />
+    </LinearLayout>
 
 </FrameLayout>

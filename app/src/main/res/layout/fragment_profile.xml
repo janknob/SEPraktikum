@@ -6,9 +6,22 @@
     tools:context=".Fragment.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="profile" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="#FF4400"
+            android:paddingLeft="10px"
+            android:paddingTop="7px"
+            android:text="Profil"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#F4F2F2" />
+
+    </LinearLayout>
 
 </FrameLayout>
