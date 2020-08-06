@@ -51,7 +51,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/disslike"
+                android:id="@+id/dislike"
                 android:src="@drawable/ic_disslike"
                 android:layout_toEndOf="@id/like"
                 android:layout_marginStart="10dp"
