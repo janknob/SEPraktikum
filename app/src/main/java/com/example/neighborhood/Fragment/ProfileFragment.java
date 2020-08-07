@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.neighborhood.EditProfileActivity;
 import com.example.neighborhood.Model.User;
 import com.example.neighborhood.R;
 import com.example.neighborhood.data.model.LoggedInUser;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     private TextView tv_name, tv_place, tv_age, tv_sex, tv_desc;
+    Button btn_editProfile;
     View view;
     private DatabaseReference userRef;
     private FirebaseDatabase database;
@@ -38,12 +41,13 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
-
+        //initialize
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_place = (TextView) view.findViewById(R.id.tv_place);
         tv_age = (TextView) view.findViewById(R.id.tv_age);
         tv_sex = (TextView) view.findViewById(R.id.tv_sex);
         tv_desc = (TextView) view.findViewById(R.id.tv_description);
+        btn_editProfile = (Button) view.findViewById(R.id.btn_editProfile);
 
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USER);
@@ -72,6 +76,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btn_editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
             }
         });
 
