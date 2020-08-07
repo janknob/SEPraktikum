@@ -103,6 +103,9 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("sex", "");
                     hashMap.put("age", "");
                     hashMap.put("desc", "");
+                    hashMap.put("place", "");
+                    hashMap.put("location", "");
+                    hashMap.put("imgurl", "https://firebasestorage.googleapis.com/v0/b/neighborhood-c6fc2.appspot.com/o/ic_user.png?alt=media&token=144394aa-d3ed-4229-9950-deeb530f8e45");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
