@@ -4,16 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.example.neighborhood.Fragment.ChatFragment;
+import com.example.neighborhood.Fragment.FriendFragment;
 import com.example.neighborhood.Fragment.MapFragment;
 import com.example.neighborhood.Fragment.ProfileFragment;
 import com.example.neighborhood.Fragment.TimelineFragment;
@@ -49,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new MapFragment();
                             break;
                         case R.id.nav_chat:
-                            selectedFragment = new ChatFragment();
+                            selectedFragment = new FriendFragment();
                             break;
                         case R.id.nav_profile:
                             selectedFragment = new ProfileFragment();
