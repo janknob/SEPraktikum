@@ -64,7 +64,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         {
             viewHolder.btn_follow.setVisibility(View.GONE);
         }
-
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +74,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
             }
         });
-
         viewHolder.btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,12 +90,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return mUsers.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;
         public CircleImageView image_profile;
@@ -127,7 +123,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                     button.setText("Freundschaftsanfrage");
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
