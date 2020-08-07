@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.neighborhood.ChatActivity;
 import com.example.neighborhood.MainActivity;
 import com.example.neighborhood.R;
 import com.example.neighborhood.RegisterActivity;
