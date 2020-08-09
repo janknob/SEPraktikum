@@ -16,7 +16,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.neighborhood.LocationHelper;
 import com.example.neighborhood.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -30,6 +32,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
@@ -41,6 +47,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private CameraPosition cameraPosition;
     SupportMapFragment mapFragment;
     FusedLocationProviderClient client;
+    private DatabaseReference userRef;
+    private FirebaseDatabase database;
+    private static final String USER = "Users";
 
 
     @Override
@@ -76,6 +85,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             //request them
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
+
+
 
         return view;
     }
@@ -128,6 +139,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 if(location!=null){
                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("me"));
                     CameraPosition de = CameraPosition.builder().target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(6).bearing(0).build();
+
+                    //save current location in DB
+                    saveCurrentLocation(location);
+
+                    //show friends nearby
+                    //for(int j = 0, i <= friends, j++){
+                    //mMap.addMarker(new MarkerOptions().position(new LatLng(friendLatitude, FriendLongitude)).title("friendName"));
+                    //}
                 }
             }
         });
@@ -163,6 +182,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         }
     }
+
+        void saveCurrentLocation(Location location){
+            //String msg = "Aktuelle Position: " + "," + Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude());
+            //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+            LocationHelper helper = new LocationHelper(location.getLatitude(), location.getLongitude());
+
+            //DB references
+            database = FirebaseDatabase.getInstance();
+            userRef = database.getReference(USER);
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            final String USERID = user.getUid();
+
+            userRef.child(USERID).child("location").setValue(helper);
+        }
+
+
 
 
 }

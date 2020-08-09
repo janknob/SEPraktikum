@@ -174,11 +174,6 @@
                         android:layout_marginTop="10dp"
                         android:hint="Benutzername"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
 
                 </LinearLayout>
 
@@ -203,11 +198,6 @@
                         android:layout_marginTop="10dp"
                         android:hint="Wohnort"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
 
                 </LinearLayout>
 
@@ -230,13 +220,9 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:hint="Benutzername"/>
+                        android:hint="Geschlecht"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
+
 
                 </LinearLayout>
 
@@ -262,11 +248,7 @@
                         android:layout_marginTop="10dp"
                         android:hint="alter"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
+
 
                 </LinearLayout>
 
@@ -293,11 +275,7 @@
                         android:layout_marginTop="10dp"
                         android:hint="Beschreibung"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
+
 
                 </LinearLayout>
 
