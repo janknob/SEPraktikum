@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.neighborhood.EditProfileActivity;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     private TextView tv_name, tv_place, tv_age, tv_sex, tv_desc;
+    private ImageView image;
     Button btn_editProfile;
     View view;
     private DatabaseReference userRef;
@@ -47,6 +49,7 @@ public class ProfileFragment extends Fragment {
         tv_age = (TextView) view.findViewById(R.id.tv_age);
         tv_sex = (TextView) view.findViewById(R.id.tv_sex);
         tv_desc = (TextView) view.findViewById(R.id.tv_description);
+        image = view.findViewById(R.id.iv_profileImage);
         btn_editProfile = (Button) view.findViewById(R.id.btn_editProfile);
 
         database = FirebaseDatabase.getInstance();
@@ -68,6 +71,7 @@ public class ProfileFragment extends Fragment {
                             tv_age.setText(ds.child("age").getValue(String.class));
                             tv_sex.setText(ds.child("sex").getValue(String.class));
                             tv_desc.setText(ds.child("desc").getValue(String.class));
+                            //image.setImageResource(ds.child("imgurl").getValue(String.class));
                         }
                     }
 
