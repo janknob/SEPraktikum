@@ -9,4 +9,5 @@
     <color name="headings">#4E5488</color>
     <color name="circleBorder">#C55966</color>
     <color name="solidCircle">#946AD6</color>
+    <color name="brightRed">#ff685b</color>
 </resources>

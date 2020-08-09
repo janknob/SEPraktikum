@@ -28,7 +28,6 @@ public class FriendFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> mUsers;
-
     EditText search_bar;
 
     @Override
@@ -77,11 +76,11 @@ public class FriendFragment extends Fragment {
                 .endAt(s+"\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren())
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    User user = snapshot1.getValue(User.class);
+                    User user = snapshot.getValue(User.class);
                     mUsers.add(user);
                 }
 

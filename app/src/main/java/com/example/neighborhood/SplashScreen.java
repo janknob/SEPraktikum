@@ -1,10 +1,7 @@
 package com.example.neighborhood;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class SplashScreen extends AppCompatActivity {

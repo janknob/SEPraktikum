@@ -32,8 +32,21 @@ public class RegisterActivity extends AppCompatActivity {
     TextView txt_login;
 
     FirebaseAuth auth;
+    FirebaseUser firebaseUser;
     DatabaseReference reference;
     ProgressDialog pd;
+
+    @Override
+    protected void onStart ()
+    {
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // redirect if user is not null
+        if (firebaseUser != null)
+        {
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
