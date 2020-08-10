@@ -90,7 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
 
-//check permission
+        //check permission
         if (ActivityCompat.checkSelfPermission(getContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return view;
@@ -104,8 +104,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         friendList.clear();
         friendList = new ArrayList<>();
 
-
-
         return view;
     }
 
@@ -117,7 +115,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
@@ -219,11 +218,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     final DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference(USER).child(o.toString());
 
 
-
-                        friendRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.child("location").getValue().toString() != null) {
+                    friendRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if((snapshot.child("location").child("latitude").getValue() != null) && (snapshot.child("location").child("longitude") != null)) {
 
 
                                     LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
@@ -242,8 +240,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         });
                     }
 
-
-
                 }
 
 
@@ -253,15 +249,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        System.out.println("show friends geht: " + friendList);
-
-
-
     }
 
     private void showFriendsLocation(){
-
-
 
     }
 
