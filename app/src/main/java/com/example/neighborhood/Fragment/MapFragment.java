@@ -2,6 +2,7 @@ package com.example.neighborhood.Fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +29,26 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
@@ -50,6 +63,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private DatabaseReference userRef;
     private FirebaseDatabase database;
     private static final String USER = "Users";
+    private static final String FRIENDED = "Unbefreundet";
+    private List<String> friendList;
+    private DatabaseReference friendsReference;
 
 
     @Override
@@ -77,50 +93,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 //check permission
         if (ActivityCompat.checkSelfPermission(getContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //When permission granted
-            //call Method
-            getCurrentLocation();
+            return view;
         } else {
             //when permission denied
             //request them
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
 
+        //clear friendList to update it
+        friendList.clear();
+        friendList = new ArrayList<>();
+
 
 
         return view;
     }
 
-    private void getCurrentLocation() {
-        //initialize task location
 
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(final Location location) {
-                //when success
-                if (location != null) {
-                    //sync map
-                    mapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            //initialize lat lng
-                            LatLng latLng = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
-                            //create marker options
-                            MarkerOptions options = new MarkerOptions().position(latLng).title("Me");
-                            //zoom map
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                            //add marker on map
-                            googleMap.addMarker(options);
-                        }
-                    });
-                }
-
-            }
-        });
-
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -137,16 +126,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onMyLocationChange(Location location) {
                 if(location!=null){
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("me"));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("me").
+                            icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f));
                     CameraPosition de = CameraPosition.builder().target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(6).bearing(0).build();
 
                     //save current location in DB
                     saveCurrentLocation(location);
 
                     //show friends nearby
-                    //for(int j = 0, i <= friends, j++){
-                    //mMap.addMarker(new MarkerOptions().position(new LatLng(friendLatitude, FriendLongitude)).title("friendName"));
-                    //}
+                    friendList = new ArrayList<>();
+                    checkIfFriend();
+                    showFriendsLocation();
                 }
             }
         });
@@ -164,7 +154,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted.
-                    getCurrentLocation();
+                    return;
                 } else {
                     // permission denied.
                     // tell the user the action is cancelled
@@ -183,9 +173,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+        //saves current location of current user in DB to show up on friends map
         void saveCurrentLocation(Location location){
-            //String msg = "Aktuelle Position: " + "," + Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude());
-            //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
 
             LocationHelper helper = new LocationHelper(location.getLatitude(), location.getLongitude());
 
@@ -198,6 +188,83 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             userRef.child(USERID).child("location").setValue(helper);
         }
+
+    private void checkIfFriend()
+    {
+
+        //DB references
+        friendsReference = FirebaseDatabase.getInstance().getReference(FRIENDED).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Befreundet");
+
+
+
+        friendsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    friendList.add(snapshot.getKey());
+                }
+
+                //show friends
+                System.out.println(friendList);
+
+                for (Object o: friendList){
+
+                    System.out.println("Show innenn: " + o.toString());
+
+
+                    //get friend location
+                    //DB Reference of Friend
+                    final DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference(USER).child(o.toString());
+
+
+                    friendRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            System.out.println("NewLocatoin: " + snapshot.getValue());
+                            System.out.println("NewLocatoin: " + snapshot.getValue());
+
+
+                            LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
+                                    Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
+
+                            System.out.println("friendlocation: " + friendLocation);
+                            mMap.addMarker(new MarkerOptions()
+                                  .position(friendLocation)).setTitle(snapshot.child("username").getValue().toString());
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        System.out.println("show friends geht: " + friendList);
+
+
+
+    }
+
+    private void showFriendsLocation(){
+
+
+
+    }
 
 
 
