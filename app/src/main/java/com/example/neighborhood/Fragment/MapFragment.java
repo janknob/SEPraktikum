@@ -222,17 +222,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     friendRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            System.out.println("NewLocatoin: " + snapshot.getValue());
-                            System.out.println("NewLocatoin: " + snapshot.getValue());
+                            if(snapshot.child("location") != null) {
 
 
-                            LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
-                                    Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
+                                LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
+                                        Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
 
-                            System.out.println("friendlocation: " + friendLocation);
-                            mMap.addMarker(new MarkerOptions()
-                                  .position(friendLocation)).setTitle(snapshot.child("username").getValue().toString());
+                                System.out.println("friendlocation: " + friendLocation);
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(friendLocation)).setTitle(snapshot.child("username").getValue().toString());
+                            }
 
                         }
 
