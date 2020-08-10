@@ -52,11 +52,12 @@ public class ProfileFragment extends Fragment {
         image = view.findViewById(R.id.iv_profileImage);
         btn_editProfile = (Button) view.findViewById(R.id.btn_editProfile);
 
+        //DB Reference
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(USER);
 
 
-
+        //get data and set it in the view
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
