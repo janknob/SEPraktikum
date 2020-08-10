@@ -31,7 +31,6 @@ public class TimelineFragment extends Fragment {
     private List<Post> postList;
     private List<String> friendList;
     private FloatingActionButton floatingActionButton;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +58,8 @@ public class TimelineFragment extends Fragment {
 
         return view;
     }
+
+
     private void checkIfFriend()
     {
         friendList = new ArrayList<>();

@@ -14,10 +14,6 @@ public class User {
     private String imageUrl;
 
 
-    public User()
-    {
-
-    }
     public User(String id, String nickname, String mail, String place, String age, String sex, String description,String imageUrl) {
         this.id = id;
         this.nickname = nickname;
@@ -29,6 +25,10 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
+    public User ()
+    {
+
+    }
     public String getId() {
         return id;
     }

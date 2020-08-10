@@ -29,6 +29,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     private Context mContext;
     private List<User> mUsers;
     private FirebaseUser firebaseUser;
+    private FirebaseDatabase database;
+    private DatabaseReference userRef;
+    private static final String USER = "Users";
 
     public  UserAdapter(Context mContext, List<User> mUsers)
     {
@@ -43,13 +46,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         final User user = mUsers.get(i);
 
         viewHolder.btn_follow.setVisibility(View.VISIBLE);
-
         viewHolder.username.setText(user.getNickname());
         Glide.with(mContext).load(user.getImageUrl()).into(viewHolder.image_profile);
         friendRequest(user.getId(), viewHolder.btn_follow);
