@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.neighborhood.Fragment.ProfileFragment;
 import com.example.neighborhood.Model.User;
@@ -24,17 +21,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     private Context mContext;
     private List<User> mUsers;
-
     private FirebaseUser firebaseUser;
+    private FirebaseDatabase database;
+    private DatabaseReference userRef;
+    private static final String USER = "Users";
 
     public  UserAdapter(Context mContext, List<User> mUsers)
     {
@@ -43,19 +40,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull  ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, viewGroup, false);
         return new UserAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         final User user = mUsers.get(i);
 
         viewHolder.btn_follow.setVisibility(View.VISIBLE);
-
         viewHolder.username.setText(user.getNickname());
         Glide.with(mContext).load(user.getImageUrl()).into(viewHolder.image_profile);
         friendRequest(user.getId(), viewHolder.btn_follow);
@@ -80,12 +76,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                 if (viewHolder.btn_follow.getText().toString().equals("Freundschaftsanfrage"))
                 {
                     FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(firebaseUser.getUid()).child("Befreundet").child(user.getId()).setValue(true);
-                    FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(user.getId()).child("Befreundet").child(firebaseUser.getUid()).setValue(true);
+                    FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(user.getId()).child("Follower").child(firebaseUser.getUid()).setValue(true);
                 }
                 else
                 {
                     FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(firebaseUser.getUid()).child("Befreundet").child(user.getId()).removeValue();
-                    FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(user.getId()).child("Befreundet").child(firebaseUser.getUid()).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(user.getId()).child("Follower").child(firebaseUser.getUid()).removeValue();
                 }
             }
         });
@@ -94,6 +90,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     public int getItemCount() {
         return mUsers.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;
         public CircleImageView image_profile;
@@ -125,7 +122,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

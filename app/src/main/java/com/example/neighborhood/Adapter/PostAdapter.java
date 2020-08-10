@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.neighborhood.Model.Post;
 import com.example.neighborhood.Model.User;
@@ -42,15 +40,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, viewGroup, false);
 
-        return new PostAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Post post = mPost.get(i);
-
-
+        viewHolder.username.setText(mPost.get(i).getPublisher());
         publisherInfo(viewHolder.image_profile, viewHolder.username, post.getPublisher());
 
     }
@@ -65,7 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         public ImageView image_profile, like, dislike;
         public TextView username, post_text, likes;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             image_profile = itemView.findViewById(R.id.image_profile);
@@ -92,7 +89,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

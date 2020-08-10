@@ -67,7 +67,7 @@ public class PostActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    uploadPost();
+                    uploadPost(str_post_text);
                     progressDialog.dismiss();
                     startActivity(new Intent(PostActivity.this, MainActivity.class));
                     finish();
@@ -75,14 +75,14 @@ public class PostActivity extends AppCompatActivity {
             }
         });
     }
-    private void uploadPost() {
+    private void uploadPost(String postText) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
         String postid = reference.push().getKey();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("postid", postid);
-        hashMap.put("postText", post_text);
+        hashMap.put("postText", postText);
         hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         reference.child(postid).setValue(hashMap);

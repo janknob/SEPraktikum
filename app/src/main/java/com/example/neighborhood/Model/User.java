@@ -1,6 +1,6 @@
 package com.example.neighborhood.Model;
 
-import java.util.ArrayList;
+
 
 public class User {
 
@@ -12,14 +12,9 @@ public class User {
     private String sex;
     private String description;
     private String imageUrl;
-    private ArrayList friendRequests;
-    private ArrayList friendList;
 
-    public User()
-    {
 
-    }
-    public User(String id, String nickname, String mail, String place, String age, String sex, String description,String imageUrl, ArrayList friendRequests, ArrayList friendList) {
+    public User(String id, String nickname, String mail, String place, String age, String sex, String description,String imageUrl) {
         this.id = id;
         this.nickname = nickname;
         this.mail = mail;
@@ -27,11 +22,13 @@ public class User {
         this.age = age;
         this.sex = sex;
         this.description = description;
-        this.friendRequests = friendRequests;
-        this.friendList = friendList;
         this.imageUrl = imageUrl;
     }
 
+    public User ()
+    {
+
+    }
     public String getId() {
         return id;
     }
@@ -95,21 +92,5 @@ public class User {
     public void setImageUrl(String imageUrl)
     {
         this.imageUrl = imageUrl;
-    }
-
-    public ArrayList getFriendRequests() {
-        return friendRequests;
-    }
-
-    public void setFriendRequests(ArrayList friendRequests) {
-        this.friendRequests = friendRequests;
-    }
-
-    public ArrayList getFriendList() {
-        return friendList;
-    }
-
-    public void setFriendList(ArrayList friendList) {
-        this.friendList = friendList;
     }
 }

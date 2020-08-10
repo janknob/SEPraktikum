@@ -24,19 +24,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/username"
-
             android:maxLines="1"
             android:textStyle="bold"/>
 
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:id="@+id/btn_friendRequest"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+       />
 
 
 
