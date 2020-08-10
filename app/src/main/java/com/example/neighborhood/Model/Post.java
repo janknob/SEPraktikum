@@ -18,10 +18,11 @@ public class Post
         this.eventTime = eventTime;
         this.publisher = publisher;
     }
-
     public Post ()
     {
+
     }
+
 
     public String getPostID() {
         return postID;

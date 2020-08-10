@@ -202,7 +202,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    friendList.add(snapshot.getKey());
+                        friendList.add(snapshot.getKey());
                 }
 
                 //show friends
@@ -224,25 +224,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             if((snapshot.child("location").child("latitude").getValue() != null) && (snapshot.child("location").child("longitude") != null)) {
 
 
-                                LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
-                                        Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
+                                    LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
+                                            Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
 
-                                System.out.println("friendlocation: " + friendLocation);
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(friendLocation)).setTitle(snapshot.child("username").getValue().toString());
+                                    System.out.println("friendlocation: " + friendLocation);
+                                    mMap.addMarker(new MarkerOptions()
+                                            .position(friendLocation)).setTitle(snapshot.child("username").getValue().toString());
+                                }
+
                             }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                            }
+                        });
+                    }
 
                 }
 
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

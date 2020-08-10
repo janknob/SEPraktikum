@@ -10,12 +10,13 @@ import android.widget.ImageView;
 
 public class StartActivity extends AppCompatActivity {
 
+
     Animation splash_anim;
     ImageView logo;
     private static int SPLASH_SCREEN = 5000;
 
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
