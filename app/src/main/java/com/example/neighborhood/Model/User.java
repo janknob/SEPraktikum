@@ -1,34 +1,29 @@
 package com.example.neighborhood.Model;
 
-
-
 public class User {
 
     private String id;
-    private String nickname;
-    private String mail;
-    private String place;
-    private String age;
+    private String username;
+    private String imgurl;
+    private String location;
+    private String desc;
     private String sex;
-    private String description;
-    private String imageUrl;
+    private String age;
 
-
-    public User(String id, String nickname, String mail, String place, String age, String sex, String description,String imageUrl) {
-        this.id = id;
-        this.nickname = nickname;
-        this.mail = mail;
-        this.place = place;
-        this.age = age;
-        this.sex = sex;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
-
-    public User ()
+    public User (String id, String username, String imgurl, String location, String desc, String sex, String age)
     {
-
+        this.id = id;
+        this.username = username;
+        this.imgurl = imgurl;
+        this.location = location;
+        this.desc = desc;
+        this.sex = sex;
+        this.age = age;
     }
+
+    public User() {
+    }
+
     public String getId() {
         return id;
     }
@@ -37,36 +32,36 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMail() {
-        return mail;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setImgurl(String imageurl) {
+        this.imgurl = imageurl;
     }
 
-    public String getPlace() {
-        return place;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getAge() {
-        return age;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getSex() {
@@ -77,20 +72,11 @@ public class User {
         this.sex = sex;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAge() {
+        return age;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl)
-    {
-        this.imageUrl = imageUrl;
+    public void setAge(String age) {
+        this.age = age;
     }
 }

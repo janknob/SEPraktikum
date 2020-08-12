@@ -14,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.neighborhood.EditProfileActivity;
-import com.example.neighborhood.Model.User;
 import com.example.neighborhood.R;
-import com.example.neighborhood.data.model.LoggedInUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

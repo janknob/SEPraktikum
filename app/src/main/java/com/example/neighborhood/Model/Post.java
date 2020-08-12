@@ -2,20 +2,14 @@ package com.example.neighborhood.Model;
 
 public class Post
 {
-    private String postID;
     private String postText;
-    private String postDate;
-    private String eventDate;
-    private String eventTime;
+    private String postid;
     private String publisher;
 
-    public Post (String postID, String postText, String postDate, String eventDate, String eventTime, String publisher)
+    public Post (String postid, String postText, String publisher)
     {
-        this.postID = postID;
+        this.postid = postid;
         this.postText = postText;
-        this.postDate = postDate;
-        this.eventDate = eventDate;
-        this.eventTime = eventTime;
         this.publisher = publisher;
     }
     public Post ()
@@ -23,13 +17,12 @@ public class Post
 
     }
 
-
-    public String getPostID() {
-        return postID;
+    public String getPostid() {
+        return postid;
     }
 
-    public void setPostID(String postID) {
-        this.postID = postID;
+    public void setPostid(String postID) {
+        this.postid = postID;
     }
 
     public String getPostText() {
@@ -38,30 +31,6 @@ public class Post
 
     public void setPostText(String postText) {
         this.postText = postText;
-    }
-
-    public String getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(String postDate) {
-        this.postDate = postDate;
-    }
-
-    public String getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public String getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
     }
 
     public String getPublisher() {
