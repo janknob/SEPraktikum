@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.neighborhood.Adapter.MessageAdapter;
 import com.example.neighborhood.Model.Chat;
 import com.example.neighborhood.Model.User;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

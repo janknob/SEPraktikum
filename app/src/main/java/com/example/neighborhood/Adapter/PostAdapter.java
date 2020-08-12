@@ -81,10 +81,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                Glide.with(mContext).load(user.getImageUrl()).into(image_profile);
-                username.setText(user.getNickname());
-
+                for (DataSnapshot activitySnaphot : dataSnapshot.getChildren()) {
+                    User user = activitySnaphot.getValue(User.class);
+                    Glide.with(mContext).load(user.getImgurl()).into(image_profile);
+                    username.setText(user.getUsername());
+                }
             }
 
             @Override

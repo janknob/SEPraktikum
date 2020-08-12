@@ -86,7 +86,6 @@ public class TimelineFragment extends Fragment {
     private void readPosts()
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

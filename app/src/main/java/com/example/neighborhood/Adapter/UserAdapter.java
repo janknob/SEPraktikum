@@ -29,9 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     private Context mContext;
     private List<User> mUsers;
     private FirebaseUser firebaseUser;
-    private FirebaseDatabase database;
-    private DatabaseReference userRef;
-    private static final String USER = "Users";
 
     public  UserAdapter(Context mContext, List<User> mUsers)
     {
@@ -52,14 +49,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         final User user = mUsers.get(i);
 
         viewHolder.btn_follow.setVisibility(View.VISIBLE);
-        viewHolder.username.setText(user.getNickname());
-        Glide.with(mContext).load(user.getImageUrl()).into(viewHolder.image_profile);
+        viewHolder.username.setText(user.getUsername());
+        Glide.with(mContext).load(user.getImgurl()).into(viewHolder.image_profile);
         friendRequest(user.getId(), viewHolder.btn_follow);
 
         if (user.getId().equals(firebaseUser.getUid()))
         {
             viewHolder.btn_follow.setVisibility(View.GONE);
         }
+        // Method for clicking on profile and get to the Profile, ist not working right now
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
             }
         });
+        // Changes in the Database for Unbefreundet und befreundet
         viewHolder.btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,11 +85,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             }
         });
     }
+    // Size of Users who are in the Database
     @Override
     public int getItemCount() {
         return mUsers.size();
     }
 
+    // Class for one User Item in the RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;
         public CircleImageView image_profile;
@@ -105,6 +106,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             btn_follow = itemView.findViewById(R.id.btn_friendRequest);
         }
     }
+    // change the Button in the Friendlist on Befreundet and Undbefreundet
     private void friendRequest(final String userid, final Button button)
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Unbefreundet").child(firebaseUser.getUid()).child("Befreundet");

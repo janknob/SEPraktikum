@@ -1,6 +1,5 @@
 package com.example.neighborhood.ui.login;
 
-
 import androidx.annotation.NonNull;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,8 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     TextView txt_login;
     FirebaseAuth auth;
-
-
+    // Method which is called when the LoginActivity is created
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         txt_login  = findViewById(R.id.txt_login);
 
         auth = FirebaseAuth.getInstance();
-
+        // Switch to the Register Activity
         txt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
-
+        // Login Button
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,13 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    // is called if the Login was successful and switch automatically to the MainActivity
                     auth.signInWithEmailAndPassword(str_email, str_password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getCurrentUser().getUid());
-
                                 reference.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -85,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
                                         pd.dismiss();
