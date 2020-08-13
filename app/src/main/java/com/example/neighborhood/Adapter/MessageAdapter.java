@@ -29,6 +29,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @NonNull
     @Override
+    //method creates new chat_item_right or chat_item_left Objects for each message
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType == MSG_TYPE_RIGHT) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, parent, false);
@@ -41,6 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
+    //method recycles the ViewHolder items so that no unnecessary Objects are created
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
 
         Chat chat = mChat.get(position);
@@ -65,6 +67,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
+    //right messages are messages from you to someone and left ones are messages from someone to you
     public int getItemViewType(int position) {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         if(mChat.get(position).getSender().equals(fUser.getUid())) {

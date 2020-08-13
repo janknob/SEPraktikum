@@ -55,11 +55,11 @@ public class ChatActivity extends AppCompatActivity {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         intent = getIntent();
-        //Username des Profils, mit dem gechatted wird
+        //gives the userid of the chatpartner
         final String userid = intent.getStringExtra("userid");
 
 
-        //Listener für den Sende-Button
+        //Listener for the send-Button
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +75,7 @@ public class ChatActivity extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
-        //immer wenn ein neues ChatObjekt in die Datenbank eingefügt wird, wird die recyclerView aktualisiert
+        //listener for database changes
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -89,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    //Die Methode, die benutzt wird, wenn man auf den Sende-Button klickt, um die Nachricht in die Datenbank zu speichern
+    //method for saving messages in the database
     private void sendMessage(String sender, String receiver, String message) {
 
         Chat chat = new Chat(sender, receiver, message);
@@ -98,24 +98,24 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    ///Die Methode, die benutzt wird, immer wenn ein ChatObjekt der Datenbank hinzugefügt wird, um alle Nachrichten, die an den user gerichtet sind und von diesem kommen in der recyclerView anzuzeigen
+    //method for pulling messages from the database and showing them with the help of the MessageAdapter in the RecyclerView
     private void readMessages(final String myId, final String userId) {
         mChat = new ArrayList<>();
 
+        //Reference to all the Chat-messages in the database
         ref = FirebaseDatabase.getInstance().getReference("Chat");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
+                //Iterates through all Chat-messages and adds all with correlation to the user to the array
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
                     assert chat != null;
                     if (chat.getReceiver().equals(myId) && chat.getSender().equals(userId) || chat.getReceiver().equals(userId) && chat.getSender().equals(myId)) {
-                        System.out.println(chat.getReceiver());
-                        System.out.println(chat.getSender());
                         mChat.add(chat);
                     }
-                    System.out.println("adapter gets adapted");
+                    //Adapter gets applied to the RecyclerView each time something changes in the database
                     messageAdapter = new MessageAdapter(ChatActivity.this, mChat);
                     recyclerView.setAdapter(messageAdapter);
                 }
