@@ -24,14 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
     Button send;
     EditText write;
-    RecyclerView chat;
     FirebaseUser fuser;
     Intent intent;
 
@@ -47,19 +45,21 @@ public class ChatActivity extends AppCompatActivity {
 
         send = findViewById(R.id.send_btn);
         write = findViewById(R.id.write_text);
-
         recyclerView = findViewById(R.id.chat_hist);
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
+
         intent = getIntent();
+        //Username des Profils, mit dem gechatted wird
         final String userid = intent.getStringExtra("userid");
 
 
-
+        //Listener für den Sende-Button
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,12 +75,11 @@ public class ChatActivity extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
+        //immer wenn ein neues ChatObjekt in die Datenbank eingefügt wird, wird die recyclerView aktualisiert
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
                 readMessages(fuser.getUid(), userid);
-                //username.setText(user.getNickname());
             }
 
             @Override
@@ -88,21 +87,18 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
+    //Die Methode, die benutzt wird, wenn man auf den Sende-Button klickt, um die Nachricht in die Datenbank zu speichern
     private void sendMessage(String sender, String receiver, String message) {
+
         Chat chat = new Chat(sender, receiver, message);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-        /*HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sender", sender);
-        hashMap.put("receiver", receiver);
-        hashMap.put("message", message);*/
-
         ref.child("Chat").push().setValue(chat);
+
     }
 
+    ///Die Methode, die benutzt wird, immer wenn ein ChatObjekt der Datenbank hinzugefügt wird, um alle Nachrichten, die an den user gerichtet sind und von diesem kommen in der recyclerView anzuzeigen
     private void readMessages(final String myId, final String userId) {
         mChat = new ArrayList<>();
 
