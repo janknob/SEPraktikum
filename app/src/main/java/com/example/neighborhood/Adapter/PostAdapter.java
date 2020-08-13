@@ -48,6 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Post post = mPost.get(i);
+        viewHolder.post_text.setText(mPost.get(i).getPostText());
         viewHolder.username.setText(mPost.get(i).getPublisher());
         publisherInfo(viewHolder.image_profile, viewHolder.username, post.getPublisher());
 
@@ -92,21 +93,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference yourRef = rootRef.child("Users").child("Micro");
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String image_profile = dataSnapshot.child("name").getValue(String.class);
-                String usernamer = dataSnapshot.child("number").getValue(String.class);
-                String price = dataSnapshot.child("price").getValue(String.class);
-                Log.d("TAG", image_profile + " / " + price + " / " + price);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        yourRef.addListenerForSingleValueEvent(eventListener);
     }
 }

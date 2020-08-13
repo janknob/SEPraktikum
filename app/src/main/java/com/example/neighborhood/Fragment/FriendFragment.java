@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.neighborhood.Adapter.UserAdapter;
 import com.example.neighborhood.Model.User;
@@ -33,7 +34,6 @@ public class FriendFragment extends Fragment {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> mUsers;
-    private ImageButton search_btn;
     EditText search_bar;
 
     @Override
@@ -44,16 +44,10 @@ public class FriendFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        search_btn = view.findViewById(R.id.search);
         search_bar = view.findViewById(R.id.search_bar);
-
         mUsers = new ArrayList<>();
         userAdapter = new UserAdapter(getContext(), mUsers);
         recyclerView.setAdapter(userAdapter);
-
-        recyclerView.setAdapter(userAdapter);
-
         readUsers();
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
