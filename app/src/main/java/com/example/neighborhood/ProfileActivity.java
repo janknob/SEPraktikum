@@ -18,12 +18,10 @@ public class ProfileActivity extends Fragment {
     View view;
     DatabaseReference reff;
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-
 
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_place = (TextView) view.findViewById(R.id.tv_place);

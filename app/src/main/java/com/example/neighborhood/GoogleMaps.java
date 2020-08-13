@@ -5,8 +5,6 @@ package com.example.neighborhood;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.neighborhood.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,7 +27,6 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng sydney = new LatLng(-33.852, 151.211);
@@ -38,9 +35,7 @@ public class GoogleMaps extends AppCompatActivity implements OnMapReadyCallback 
                 .title("Marker in Sydney"));
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
     }
-
 }
 
 
