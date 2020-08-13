@@ -177,7 +177,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         void saveCurrentLocation(Location location){
 
 
-            LocationHelper helper = new LocationHelper(location.getLatitude(), location.getLongitude());
+            //LocationHelper helper = new LocationHelper(location.getLatitude(), location.getLongitude());
 
             //DB references
             database = FirebaseDatabase.getInstance();
@@ -186,7 +186,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             final String USERID = user.getUid();
 
-            userRef.child(USERID).child("location").setValue(helper);
+            userRef.child(USERID).child("latitude").setValue(location.getLatitude());
+            userRef.child(USERID).child("longitude").setValue(location.getLongitude());
         }
 
     private void checkIfFriend()
@@ -217,16 +218,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     //get friend location
                     //DB Reference of Friend
                     final DatabaseReference friendRef = FirebaseDatabase.getInstance().getReference(USER).child(o.toString());
+                    System.out.println(friendRef.child("location").toString());
 
 
                     friendRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if((snapshot.child("location").child("latitude").getValue() != null) && (snapshot.child("location").child("longitude") != null)) {
+                            if((snapshot.child("latitude").getValue() != null) && (snapshot.child("longitude") != null)) {
 
 
-                                    LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("location").child("latitude").getValue().toString()),
-                                            Double.parseDouble(snapshot.child("location").child("longitude").getValue().toString()));
+                                    LatLng friendLocation = new LatLng(Double.parseDouble(snapshot.child("latitude").getValue().toString()),
+                                            Double.parseDouble(snapshot.child("longitude").getValue().toString()));
 
                                     System.out.println("friendlocation: " + friendLocation);
                                     mMap.addMarker(new MarkerOptions()
