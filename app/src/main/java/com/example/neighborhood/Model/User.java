@@ -5,12 +5,14 @@ public class User {
     private String id;
     private String username;
     private String imgurl;
-    private String location;
     private String desc;
     private String sex;
     private String age;
+    private String latitude;
+    private String longitude;
+    private String location;
 
-    public User (String id, String username, String imgurl, String location, String desc, String sex, String age)
+    public User (String id, String username, String imgurl, String latitude, String longitude, String location, String desc, String sex, String age)
     {
         this.id = id;
         this.username = username;
@@ -19,6 +21,8 @@ public class User {
         this.desc = desc;
         this.sex = sex;
         this.age = age;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public User() {
@@ -48,7 +52,7 @@ public class User {
         this.imgurl = imageurl;
     }
 
-    public String getLocation() {
+    public Object getLocation() {
         return location;
     }
 
