@@ -112,7 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //sending confirmation toast
         Context context = getApplicationContext();
-        CharSequence text = "Änderungen wurden übernommen" + USERID;
+        CharSequence text = "Änderungen wurden übernommen";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
