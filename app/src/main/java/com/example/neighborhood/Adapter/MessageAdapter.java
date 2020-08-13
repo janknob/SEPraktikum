@@ -50,7 +50,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mChat.size();
+            return mChat.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,7 +60,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
 
-            show_message = itemView.findViewById(R.id.username);
+            show_message = itemView.findViewById(R.id.show_message);
         }
     }
 
