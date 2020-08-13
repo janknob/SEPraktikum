@@ -56,8 +56,7 @@ public class ChatActivity extends AppCompatActivity {
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         intent = getIntent();
-        //final String userid = intent.getStringExtra("userid");
-        final String userid = "7lJh8Dk7LmTUXTLvlQ2fIHsk3qj1";
+        final String userid = intent.getStringExtra("userid");
 
 
 

@@ -1,6 +1,7 @@
 package com.example.neighborhood.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.neighborhood.ChatActivity;
 import com.example.neighborhood.Fragment.ProfileFragment;
 import com.example.neighborhood.Model.User;
 import com.example.neighborhood.R;
@@ -61,11 +63,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("profileid", user.getId());
-                editor.apply();
-
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                Intent intent = new Intent(mContext, ChatActivity.class);
+                intent.putExtra("userid", user.getId());
+                mContext.startActivity(intent);
             }
         });
         // Changes in the Database for Unbefreundet und befreundet
