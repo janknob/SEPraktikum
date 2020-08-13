@@ -87,8 +87,8 @@ public class FriendFragment extends Fragment {
                 mUsers.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    //User user = snapshot.getValue(User.class);
-                    //mUsers.add(user);
+                    User user = snapshot.getValue(User.class);
+                    mUsers.add(user);
                 }
 
                 userAdapter.notifyDataSetChanged();
@@ -109,6 +109,7 @@ public class FriendFragment extends Fragment {
                 if ( search_bar.getText().toString().equals("")) {
                     mUsers.clear();
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        System.out.println(dataSnapshot.getValue());
                         User user = dataSnapshot1.getValue(User.class);
                         mUsers.add(user);
                     }

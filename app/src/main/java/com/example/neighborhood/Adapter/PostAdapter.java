@@ -1,6 +1,7 @@
 package com.example.neighborhood.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,16 +82,31 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot activitySnaphot : dataSnapshot.getChildren()) {
-                    User user = activitySnaphot.getValue(User.class);
+                    User user = dataSnapshot.getValue(User.class);
                     Glide.with(mContext).load(user.getImgurl()).into(image_profile);
                     username.setText(user.getUsername());
-                }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference yourRef = rootRef.child("Users").child("Micro");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String image_profile = dataSnapshot.child("name").getValue(String.class);
+                String usernamer = dataSnapshot.child("number").getValue(String.class);
+                String price = dataSnapshot.child("price").getValue(String.class);
+                Log.d("TAG", image_profile + " / " + price + " / " + price);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        yourRef.addListenerForSingleValueEvent(eventListener);
     }
 }
