@@ -3,8 +3,6 @@ package com.example.neighborhood.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.neighborhood.EditProfileActivity;
 import com.example.neighborhood.Model.User;
@@ -37,12 +34,9 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase database;
     private static final String USER = "Users";
 
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         //initialize
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_place = (TextView) view.findViewById(R.id.tv_place);
@@ -64,7 +58,6 @@ public class ProfileFragment extends Fragment {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         if(ds.child("id").getValue().equals(user.getUid())) {
                             if (getActivity() == null) {
@@ -81,13 +74,12 @@ public class ProfileFragment extends Fragment {
                     }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
+        // switch from Profile Fragment to EditProfile Activity
         btn_editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +88,6 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         return view;
     }
 }

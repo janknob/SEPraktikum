@@ -3,26 +3,19 @@ package com.example.neighborhood;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.example.neighborhood.Fragment.ProfileFragment;
 import com.example.neighborhood.Model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -77,16 +70,12 @@ public class EditProfileActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
-
-
         //Get current Information
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if(ds.child("id").getValue().equals(user.getUid())) {
@@ -100,15 +89,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
 
         //Button Click
         mBtn_saveProfile.setOnClickListener(new View.OnClickListener() {
@@ -126,12 +111,14 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Method for getting the File Extension of the image
     private String getFileExtension(Uri uri){
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-
+    // Method for uploading the image from the app to the database storage
     private void uploadImage(){
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Wird hochgeladen");
@@ -182,6 +169,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    // Result Method for uploading an Image, Failed or succeeded
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -209,19 +197,16 @@ public class EditProfileActivity extends AppCompatActivity {
         newDec = mEditDesc.getText().toString();
 
         //DB Changes
-        userRef.child(USERID).child("username").setValue(newName);
+        userRef.child(USERID).child("username").setValue(newName.toLowerCase()).toString().toLowerCase();
         userRef.child(USERID).child("place").setValue(newPlace);
         userRef.child(USERID).child("sex").setValue(newSex);
         userRef.child(USERID).child("age").setValue(newAge);
         userRef.child(USERID).child("desc").setValue(newDec);
 
-
-
         //sending confirmation toast
         Context context = getApplicationContext();
         CharSequence text = "Änderungen wurden übernommen";
         int duration = Toast.LENGTH_SHORT;
-
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }

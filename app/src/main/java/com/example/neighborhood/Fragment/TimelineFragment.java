@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TimelineFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -31,11 +30,11 @@ public class TimelineFragment extends Fragment {
     private List<Post> postList;
     private List<String> friendList;
     private FloatingActionButton floatingActionButton;
+    // Method which is called when the Fragment is clicked
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -58,8 +57,7 @@ public class TimelineFragment extends Fragment {
 
         return view;
     }
-
-
+    // Method for checking the Users in the Database if they are friends or not, If they are Friends the Posts of this user will displayed
     private void checkIfFriend()
     {
         friendList = new ArrayList<>();
@@ -76,13 +74,12 @@ public class TimelineFragment extends Fragment {
                 }
                 readPosts();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
-
+    // reads all the posts from your friendlist and save them into an array List
     private void readPosts()
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");

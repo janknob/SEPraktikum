@@ -2,18 +2,15 @@ package com.example.neighborhood.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.neighborhood.ChatActivity;
-import com.example.neighborhood.Fragment.ProfileFragment;
 import com.example.neighborhood.Model.User;
 import com.example.neighborhood.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +56,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         {
             viewHolder.btn_follow.setVisibility(View.GONE);
         }
-        // Method for clicking on profile and get to the Profile, ist not working right now
+        // Method for clicking on profile and get to the Profile
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

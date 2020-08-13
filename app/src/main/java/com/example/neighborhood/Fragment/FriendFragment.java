@@ -7,18 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
 import com.example.neighborhood.Adapter.UserAdapter;
 import com.example.neighborhood.Model.User;
 import com.example.neighborhood.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +22,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FriendFragment extends Fragment {
 
@@ -54,19 +48,16 @@ public class FriendFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchUsers(charSequence.toString().toLowerCase());
 
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
-
         return view;
     }
     // Search Method if you put any letters in the search bar
@@ -87,10 +78,8 @@ public class FriendFragment extends Fragment {
 
                 userAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -103,10 +92,10 @@ public class FriendFragment extends Fragment {
                 if ( search_bar.getText().toString().equals("")) {
                     mUsers.clear();
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        System.out.println(dataSnapshot.getValue());
                         User user = dataSnapshot1.getValue(User.class);
                         mUsers.add(user);
                     }
+                    userAdapter.notifyDataSetChanged();
                 }
             }
             @Override
