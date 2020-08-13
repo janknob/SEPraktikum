@@ -3,7 +3,6 @@ package com.example.neighborhood;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TimelineFragment()).commit();
     }
+
     // switch Case Listener which switch to the fragment which is selected by the user
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

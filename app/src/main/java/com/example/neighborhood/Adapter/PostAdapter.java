@@ -1,7 +1,6 @@
 package com.example.neighborhood.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +26,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 {
     public Context mContext;
     public List<Post> mPost;
-
     private FirebaseUser firebaseUser;
-
+    // Constructor for PostAdapter
     public  PostAdapter (Context mContext, List<Post> mPost)
     {
         this.mContext = mContext;
         this.mPost = mPost;
     }
-
+    // Method for displaying the posts
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,7 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
         return new ViewHolder(view);
     }
-
+    // Method for displaying the postText, username and image
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -53,12 +51,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
         publisherInfo(viewHolder.image_profile, viewHolder.username, post.getPublisher());
 
     }
-
+    // Returns the number of posts
     @Override
     public int getItemCount() {
         return mPost.size();
     }
-
+    // Class for one post item
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView image_profile, like, dislike;
@@ -76,6 +74,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
 
         }
     }
+    // Method for Saving the publisherInfo in the Model User Class from database
     private void publisherInfo (final ImageView image_profile, final TextView username, String userid )
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -88,7 +87,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>
                     username.setText(user.getUsername());
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
